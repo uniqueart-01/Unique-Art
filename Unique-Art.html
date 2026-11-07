@@ -531,7 +531,7 @@ body.light .links a{color:#252a33!important}
 </section>
 
 <section class="sec s-cat" id="categories">
-  <div class="wrap"><p class="eyebrow rv">Explore Categories</p><h2 class="rv">Twelve worlds, <em>one universe</em></h2></div>
+  <div class="wrap"><p class="eyebrow rv">Explore Categories</p><h2 class="rv">Explore every <em>world</em></h2></div>
   <div class="cats" id="cats"></div>
 </section>
 
@@ -667,7 +667,7 @@ $$('[data-i]').forEach(e=>{const k=e.dataset.i;if(I[k])e.insertAdjacentHTML('aft
    WALLPAPER DATA + PROCEDURAL ART
    ============================================================ */
 const PAL={Nature:['#171717','#a3a3a3','#e5e5e5'],Cars:['#171717','#a3a3a3','#e5e5e5'],Supercars:['#171717','#a3a3a3','#e5e5e5'],Gaming:['#171717','#a3a3a3','#e5e5e5'],Anime:['#171717','#a3a3a3','#e5e5e5'],Space:['#171717','#a3a3a3','#e5e5e5'],Abstract:['#171717','#a3a3a3','#e5e5e5'],Technology:['#171717','#a3a3a3','#e5e5e5'],Minimal:['#171717','#a3a3a3','#e5e5e5'],Architecture:['#171717','#a3a3a3','#e5e5e5'],Animals:['#171717','#a3a3a3','#e5e5e5'],Fantasy:['#171717','#a3a3a3','#e5e5e5']}
-const CATS=Object.keys(PAL);
+let CATS=[]; // Automatically populated from the wallpaper data below.
 const STY={Nature:'m',Fantasy:'m',Architecture:'b',Cars:'r',Supercars:'r',Gaming:'g',Technology:'g',Space:'s',Anime:'u',Animals:'u',Abstract:'o',Minimal:'o'};
 const NM={Nature:['Emerald Ridge','Misty Valley'],Cars:['Midnight Coupe','Chrome Drive'],Supercars:['Apex Velocity','Neon Hypercar'],Gaming:['Pixel Arena','Final Boss'],Anime:['Sakura Skyline','Spirit Lantern'],Space:['Nebula Drift','Orbit Eclipse'],Abstract:['Liquid Aurora','Prism Flow'],Technology:['Quantum Grid','Circuit Bloom'],Minimal:['Soft Horizon','Quiet Arc'],Architecture:['Glass Spire','Concrete Light'],Animals:['Arctic Fox','Night Owl'],Fantasy:['Dragon Peak','Crystal Realm']};
 
@@ -1011,6 +1011,27 @@ const W=[
 ];
 
 /* ============================================================
+   AUTOMATIC CATEGORIES
+   Add a wallpaper with cat: "Your New Category" in W above.
+   The category cards, wallpaper counts, gallery chips and art
+   palette are generated from W automatically.
+   ============================================================ */
+CATS=[...new Set(W.map(p=>(p.cat||'Uncategorized').trim()).filter(Boolean))];
+CATS.forEach(cat=>{
+  if(!PAL[cat]) PAL[cat]=['#071323','#168bff','#7dd3fc'];
+  if(!STY[cat]) STY[cat]='o';
+});
+$$('[data-n]').forEach(el=>{
+  if(el.nextElementSibling?.textContent.trim()==='Wallpapers') el.dataset.n=W.length;
+  if(el.nextElementSibling?.textContent.trim()==='Categories') el.dataset.n=CATS.length;
+});
+const renderCategories=()=>{
+  $('#cats').innerHTML=CATS.map(c=>`<button class="cat" data-cat="${c}" style="--a:${PAL[c][0]};--b:${PAL[c][1]}55"><span>${c}</span><small>${W.filter(p=>(p.cat||'Uncategorized').trim()===c).length} wallpapers</small></button>`).join('');
+  $('#chips').innerHTML=['All',...CATS].map(c=>`<button class="chip${c==='All'?' on':''}" data-cat="${c}">${c}</button>`).join('');
+};
+renderCategories();
+
+ /* ============================================================
    FAVORITES / TOAST / CARDS
    ============================================================ */
 let FAV=new Set();
@@ -1065,8 +1086,7 @@ fill('#newStrip',[...W].sort((a,b)=>b.id-a.id).slice(0,8));
 fill('#popStrip',[...W].sort((a,b)=>b.dl-a.dl).slice(0,8));
 fill('#premRow',W.filter(p=>p.prem),1);
 
-$('#cats').innerHTML=CATS.map(c=>`<button class="cat" data-cat="${c}" style="--a:${PAL[c][0]};--b:${PAL[c][1]}55"><span>${c}</span><small>${W.filter(p=>p.cat===c).length} wallpapers</small></button>`).join('');
-$('#chips').innerHTML=['All',...CATS].map(c=>`<button class="chip${c==='All'?' on':''}" data-cat="${c}">${c}</button>`).join('');
+// Category cards and filter chips are rendered automatically from W above.
 
 /* ============================================================
    GALLERY
@@ -1610,7 +1630,7 @@ function hero3d(){
       });
       t.colorSpace=THREE.SRGBColorSpace||THREE.sRGBEncoding;
     }else{
-      t=new THREE.CanvasTexture(art(448,280,CATS[(i*3+1)%12],i*17+9));
+      t=new THREE.CanvasTexture(art(448,280,CATS[(i*3+1)%CATS.length],i*17+9));
     }
     const m=new THREE.MeshBasicMaterial({map:t,transparent:true,opacity:.95});
     const mesh=new THREE.Mesh(geo,m);
