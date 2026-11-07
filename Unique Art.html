@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="WALLVERSE is a cinematic, responsive wallpaper gallery website template with 3D visuals, animated sections, categories, search, favorites and wallpaper downloads.">
+<meta name="description" content="Unique Art is a cinematic, responsive wallpaper gallery website template with 3D visuals, animated sections, categories, search, favorites and wallpaper downloads.">
 <meta name="theme-color" content="#04050d">
-<title>WALLVERSE — Explore Beyond Wallpapers</title>
+<title>Unique Art — Explore Beyond Wallpapers</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -341,7 +341,7 @@ footer li a:hover{color:#fff}
 <body>
 
 <nav class="nav" id="nav">
-  <a class="logo" href="#home" data-go="#home">WALLVERSE</a>
+  <a class="logo" href="#home" data-go="#home">Unique Art</a>
 
   <ul class="links" id="menu">
     <li><a href="#home" data-go="#home">Home</a></li>
@@ -448,9 +448,9 @@ footer li a:hover{color:#fff}
 
 <section class="sec s-about" id="about">
   <div class="wrap"><div class="about-card">
-    <p class="eyebrow">About WALLVERSE</p>
+    <p class="eyebrow">About Unique Art</p>
     <h2 style="margin-bottom:1rem">A gallery built for <em>your screens</em></h2>
-    <p>WALLVERSE is a cinematic wallpaper gallery for phones, laptops and ultrawide monitors. Every wallpaper is rendered on demand at its full resolution, so what you preview is exactly what you download.</p>
+    <p>Unique Art is a cinematic wallpaper gallery for phones, laptops and ultrawide monitors. Every wallpaper is rendered on demand at its full resolution, so what you preview is exactly what you download.</p>
     <div class="stats">
       <div><b data-n="24">0</b><span>Wallpapers</span></div>
       <div><b data-n="12">0</b><span>Categories</span></div>
@@ -463,7 +463,7 @@ footer li a:hover{color:#fff}
 <footer>
   <div class="fgrid">
     <div>
-      <a class="logo" href="#home" data-go="#home">WALLVERSE</a>
+      <a class="logo" href="#home" data-go="#home">Unique Art</a>
       <p class="copy" style="margin-top:.8rem">Discover stunning visuals for your digital world.</p>
     </div>
     <div><h4>Explore</h4><ul>
@@ -479,7 +479,7 @@ footer li a:hover{color:#fff}
     </ul></div>
     <div><h4>Formats</h4><ul><li>JPG</li><li>PNG</li><li>WebP</li></ul></div>
   </div>
-  <p class="copy">© 2026 WALLVERSE. All wallpapers are generated artwork.</p>
+  <p class="copy">© 2026 Unique Art. All wallpapers are generated artwork.</p>
 </footer>
 
 <div class="modal" id="modal" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Wallpaper preview" data-lenis-prevent>
@@ -694,7 +694,7 @@ async function download(p,fmt='jpg',btn){
   if(!blob){toast('Could not create the file. Please try again.');return}
 
   const ext=blob.type==='image/png'?'png':blob.type==='image/webp'?'webp':'jpg';
-  const name=`wallverse-${p.title.toLowerCase().replace(/\s+/g,'-')}-${p.res}.${ext}`;
+  const name=`Unique Art-${p.title.toLowerCase().replace(/\s+/g,'-')}-${p.res}.${ext}`;
 
   let dls=null;
   try{if(window.claude&&window.claude.use)dls=await window.claude.use('downloads')}catch(e){}
